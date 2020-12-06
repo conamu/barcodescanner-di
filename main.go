@@ -42,6 +42,8 @@ func main() {
 			_, err, data := session.driver.getData()
 			if errors.Is(err, notFound) {
 				fmt.Println("This Code was not found.\nPlease Add it first.")
+			} else if errors.Is(err, notValid) {
+				fmt.Println("This Code is not valid.")
 			} else {
 				itemDisplay(data[0], data[1], data[2], data[3])
 			}
@@ -50,6 +52,8 @@ func main() {
 			_, err := session.driver.editData()
 			if errors.Is(err, notFound) {
 				fmt.Println("This Code was not found.\nPlease Add it first.")
+			} else if errors.Is(err, notValid) {
+				fmt.Println("This Code is not valid.")
 			}
 			sleep()
 		case "3":
@@ -57,12 +61,16 @@ func main() {
 			_, err := session.driver.deleteData()
 			if errors.Is(err, notFound) {
 				fmt.Println("This Code was not found.\nPlease Add it first.")
+			}  else if errors.Is(err, notValid) {
+				fmt.Println("This Code is not valid.")
 			}
 			sleep()
 		case "4":
 			_, err := session.driver.writeData()
 			if errors.Is(err, notFound) {
 				fmt.Println("This Code already exists in the Database.")
+			} else if errors.Is(err, notValid) {
+				fmt.Println("This Code is not valid.")
 			}
 			sleep()
 		case "5":
@@ -73,6 +81,8 @@ func main() {
 				} else {
 					if errors.Is(err, notFound) {
 						fmt.Println("This Code was not found.\nPlease Add it first.")
+					} else if errors.Is(err, notValid) {
+						fmt.Println("This Code is not valid.")
 					} else {
 						itemDisplay(data[0], data[1], data[2], data[3])
 					}
@@ -83,6 +93,8 @@ func main() {
 				continues, err := session.driver.writeData()
 				if !continues {
 					return
+				} else if errors.Is(err, notValid) {
+					fmt.Println("This Code is not valid.")
 				} else {
 					if errors.Is(err, notFound) {
 						fmt.Println("This Code already exists in the Database.")

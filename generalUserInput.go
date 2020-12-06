@@ -19,9 +19,8 @@ func validateBarcode(barcode *barcode) *barcode {
 
 	if strings.HasPrefix(barcode.code, config.validityPrefix) || barcode.code == "end" {
 		barcode.valid = true
-	} else if !config.api.enable{
-		fmt.Println("Please enter a valid barcode.")
 	}
+
 	return barcode
 }
 

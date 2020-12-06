@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
+	"github.com/spf13/viper"
 	"log"
 	"os"
 	"strings"
@@ -50,7 +51,11 @@ func (fd flatDriver) getData() (bool, error, []string) {
 }
 
 func (fd flatDriver) writeData() (bool, error) {
-	// TODO
+	if !fd.barcode.valid {
+		return true, notValid
+	}
+	
+
 }
 
 func (fd flatDriver) editData() (bool, error) {
