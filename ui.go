@@ -13,9 +13,9 @@ func initMainMenu() {
 	menustyling.CreateMenu(menuText, "=", 2, 1, true, true).StoreMenu("main")
 }
 
-func itemDisplay(name, category, description string) {
+func itemDisplay(code, name, category, description string) {
 	menuText := make([][]string, 1)
-	menuText[0] = []string{"Item: " + strings.TrimSpace(name) + "  == " + " Category: " + strings.TrimSpace(category), "Item Description: " + strings.TrimSpace(description)}
+	menuText[0] = []string{"Code" + strings.TrimSpace(code), "Item: " + strings.TrimSpace(name) + "  == " + " Category: " + strings.TrimSpace(category), "Item Description: " + strings.TrimSpace(description)}
 	menustyling.CreateMenu(menuText, "=", 1, 1, false, false).DisplayMenu()
 }
 

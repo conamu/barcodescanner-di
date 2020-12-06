@@ -9,14 +9,14 @@ import (
 var scanner = bufio.NewScanner(os.Stdin)
 
 type dataInterface interface {
-	getData() (bool,error , []string)
+	getData() (bool, error , []string)
 	writeData() (bool, error)
 	editData() (bool, error)
 	deleteData() (bool, error)
 }
 
 type codeSession struct {
-	dataInterface *dataInterface
+	driver dataInterface
 	code string
 	codeValid bool
 	data []string
@@ -27,9 +27,9 @@ type barcode struct {
 	valid bool
 }
 
-func newCodeSession(dataInterface dataInterface) codeSession  {
-	return codeSession {
-		&dataInterface,
+func newCodeSession(dataInterface dataInterface) *codeSession  {
+	return &codeSession {
+		dataInterface,
 		"",
 		false,
 		nil,
