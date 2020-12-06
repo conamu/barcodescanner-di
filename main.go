@@ -8,10 +8,6 @@ import (
 	"time"
 )
 
-var session *codeSession
-
-var notFound = errors.New("CNF")
-
 func sleep() {
 	time.Sleep(time.Second * 3)
 }

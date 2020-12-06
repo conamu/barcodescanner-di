@@ -23,10 +23,7 @@ func (sd sqlDriver) deleteData() (bool, error) {
 
 func newSqlDriver() sqlDriver {
 	return sqlDriver {
-		&barcode{
-			"",
-			false,
-		},
+		validateBarcode(getBarcode()),
 		nil,
 	}
 }

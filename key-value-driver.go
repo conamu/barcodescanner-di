@@ -23,10 +23,7 @@ func (kd kvDriver) deleteData() (bool, error) {
 
 func newKvDriver() kvDriver {
 	return kvDriver {
-		&barcode{
-			"",
-			false,
-		},
+		validateBarcode(getBarcode()),
 		nil,
 	}
 }

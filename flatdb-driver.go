@@ -1,12 +1,52 @@
 package main
 
+import (
+	"encoding/csv"
+	"fmt"
+	"log"
+	"os"
+	"strings"
+)
+
 type flatDriver struct {
 	barcode *barcode
 	data []string
 }
 
 func (fd flatDriver) getData() (bool, error, []string) {
-	// TODO
+	if !fd.barcode.valid {
+		return true, notValid, nil
+	}
+
+	var dataRow []string
+	file, err := os.OpenFile(config.dbPath, os.O_RDWR|os.O_CREATE, 0755)
+	defer file.Close()
+	check(err)
+	reader := csv.NewReader(file)
+	records, err := reader.ReadAll()
+	check(err)
+	notCount := 1
+
+	for _, record := range records {
+		if strings.Contains(strings.Join(record, " "), fd.barcode.code) {
+			dataRow = record
+		} else if fd.barcode.code == "end" {
+			log.Println("Scanned end code, exiting!")
+			return false, exitCode, nil
+		} else if !strings.Contains(strings.Join(record, " "), fd.barcode.code) {
+			notCount++
+		}
+	}
+
+	if notCount > len(records) {
+		fmt.Println("This code is not stored in the system.")
+
+		return true, notFound, nil
+	}
+
+	return true, nil, dataRow
+
+
 }
 
 func (fd flatDriver) writeData() (bool, error) {
@@ -23,10 +63,7 @@ func (fd flatDriver) deleteData() (bool, error) {
 
 func newFlatDriver() flatDriver {
 	return flatDriver {
-		&barcode{
-			"",
-			false,
-		},
+		validateBarcode(getBarcode()),
 		nil,
 	}
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -22,7 +21,6 @@ func validateBarcode(barcode *barcode) *barcode {
 		barcode.valid = true
 	} else if !config.api.enable{
 		fmt.Println("Please enter a valid barcode.")
-	} else {
 	}
 	return barcode
 }
