@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 type dataInterface interface {
@@ -26,6 +28,27 @@ func newCodeSession(dataInterface *dataInterface) codeSession  {
 		false,
 		nil,
 	}
+}
+
+func getBarcode() {
+	
+}
+
+func validateBarcode(barcode string) (string, bool) {
+
+	var code string
+	var valid bool
+
+	if strings.HasPrefix(barcode, config.validityPrefix) || barcode == "end" {
+		code = barcode
+		valid = true
+	} else if !config.api.enable{
+		fmt.Println("Please enter a valid barcode.")
+		return "", false
+	} else {
+		return "", false
+	}
+	return code, valid
 }
 
 func check(err error) {
