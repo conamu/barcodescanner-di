@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"strings"
 )
 
@@ -46,4 +47,26 @@ func getParams() (name, category, description string) {
 	description = charLimiter(description, 500)
 
 	return name, category, description
+}
+
+func charLimiter(code string, limit int) string {
+	//create a new reader, that is gonna read through s string
+	reader := strings.NewReader(code)
+	//create a buffer (slice of bytes), who's size gonna be limited
+	buff := make([]byte, limit)
+	// Fill the buff slice initially with spaces so we can TrimSpace the Strings to display them easier.
+	for i := len(code); i < len(buff); i++ {
+		buff[i] = 32
+	}
+	//using ReadAtLeast we gonna read (s) into buff until it has read at least minimum byte (limit)
+	//it will read also further, but buff is limited by (limit) and it will not take more characters than that
+	n, _ := io.ReadAtLeast(reader, buff, limit)
+	if n != 0 {
+		if len(code) > limit {
+			fmt.Printf("You wrote %d characters. Only %d of them will be accepted.\n", len(code), limit)
+		}
+		return string(buff)
+	}
+	return code
+
 }
