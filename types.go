@@ -22,9 +22,14 @@ type codeSession struct {
 	data []string
 }
 
-func newCodeSession(dataInterface *dataInterface) codeSession  {
+type barcode struct {
+	code string
+	valid bool
+}
+
+func newCodeSession(dataInterface dataInterface) codeSession  {
 	return codeSession {
-		dataInterface,
+		&dataInterface,
 		"",
 		false,
 		nil,

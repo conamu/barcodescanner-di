@@ -6,27 +6,24 @@ import (
 	"strings"
 )
 
-func getBarcode() string {
+func getBarcode() *barcode {
 	fmt.Println("Please scan or enter a barcode:")
 	scanner.Scan()
-	return scanner.Text()
+	return &barcode{
+		scanner.Text(),
+		false,
+	}
 }
 
-func validateBarcode(barcode string) (string, bool) {
+func validateBarcode(barcode *barcode) *barcode {
 
-	var code string
-	var valid bool
-
-	if strings.HasPrefix(barcode, config.validityPrefix) || barcode == "end" {
-		code = barcode
-		valid = true
+	if strings.HasPrefix(barcode.code, config.validityPrefix) || barcode.code == "end" {
+		barcode.valid = true
 	} else if !config.api.enable{
 		fmt.Println("Please enter a valid barcode.")
-		return "", false
 	} else {
-		return "", false
 	}
-	return code, valid
+	return barcode
 }
 
 func getParams() (name, category, description string) {

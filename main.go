@@ -1,11 +1,8 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"log"
+	"github.com/conamu/cliutilsmodule/menustyling"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -16,15 +13,23 @@ func main() {
 		}
 	}
 
-	// Create a new CodeSession based on configured db Type
-	var session codeSession
-	switch config.dbType {
-	case "flat":
-		session = newCodeSession(flatConnector)
-	case "kv":
-		session = newCodeSession(kvConnector)
-	case "sql":
-		session = newCodeSession(sqlConnector)
+	initMainMenu()
+	menu := menustyling.GetStoredMenu("main")
+	for true {
+		// Create a new CodeSession based on configured db Type
+		var session codeSession
+		switch config.dbType {
+		case "flat":
+			session = newCodeSession(newFlatDriver())
+		case "kv":
+			session = newCodeSession(newKvDriver())
+		case "sql":
+			session = newCodeSession(newSqlDriver())
+		}
+
+		menu.DisplayMenu()
+
+
 	}
 
 

@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func initMenus() {
+func initMainMenu() {
 	menuText := make([][]string, 3)
 	menuText[0] = []string{"Welcome to the Scanning Application!", "Please choose an option."}
 	menuText[1] = []string{"1) Scan a Barcode", "2) Edit an Entry", "3) Delete an Entry", "4) Add an Entry", "5) Endless Scanning","6) Endless Adding", "q) Quit"}
