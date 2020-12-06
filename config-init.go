@@ -17,6 +17,7 @@ type Config struct {
 	sqlDatabase string
 	sqlServer string
 	sqlPort string
+	validityPrefix string
 	api ApiConfig
 }
 
@@ -34,6 +35,7 @@ func initConfig() *Config{
 	viper.SetDefault("mysqlDatabaseName", "barcodes")
 	viper.SetDefault("mysqlServerAddress", "localhost")
 	viper.SetDefault("mysqlServerPort", "3306")
+	viper.SetDefault("validityPrefix", "H24")
 
 	// If it doesnt exist, create a new config file with the default values.
 	viper.SafeWriteConfigAs(".config.yaml")
@@ -71,6 +73,9 @@ func initConfig() *Config{
 		config.api.enable = true
 		config.api.port = viper.GetString("apiEndpointPort")
 	}
+
+	// Set the Prefix, to check if a barcode is valid.
+	config.validityPrefix = viper.GetString("validityPrefix")
 
 	return &config
 
