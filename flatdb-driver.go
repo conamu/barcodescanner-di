@@ -14,7 +14,7 @@ type flatDriver struct {
 	data []string
 }
 
-func (fd flatDriver) getData() (bool, error, []string) {
+func (fd *flatDriver) getData() (bool, error, []string) {
 	if !fd.barcode.valid {
 		return true, notValid, nil
 	}
@@ -50,24 +50,42 @@ func (fd flatDriver) getData() (bool, error, []string) {
 
 }
 
-func (fd flatDriver) writeData() (bool, error) {
+func (fd *flatDriver) writeData() (bool, error) {
 	if !fd.barcode.valid {
 		return true, notValid
 	}
+
+	file, err := os.OpenFile(config.dbPath, os.O_APPEND|os.O_RDWR|os.O_CREATE, 0755)
+	check(err)
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	records, err := reader.ReadAll()
+	check(err)
+
+	records = append(records, fd.data)
+
+	writer := csv.NewWriter(file)
+	writer.WriteAll(records)
+
+	return true, nil
+}
+
+func (fd *flatDriver) editData() (bool, error) {
+	if !fd.barcode.valid {
+		return true, notValid
+	}
+
 	
 
 }
 
-func (fd flatDriver) editData() (bool, error) {
+func (fd *flatDriver) deleteData() (bool, error) {
 	// TODO
 }
 
-func (fd flatDriver) deleteData() (bool, error) {
-	// TODO
-}
-
-func newFlatDriver() flatDriver {
-	return flatDriver {
+func newFlatDriver() *flatDriver {
+	return &flatDriver {
 		validateBarcode(getBarcode()),
 		nil,
 	}

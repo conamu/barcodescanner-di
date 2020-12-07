@@ -22,8 +22,7 @@ type dataInterface interface {
 
 type codeSession struct {
 	driver dataInterface
-	code string
-	codeValid bool
+	barcode *barcode
 	data []string
 }
 
@@ -35,8 +34,7 @@ type barcode struct {
 func newCodeSession(dataInterface dataInterface) *codeSession  {
 	return &codeSession {
 		dataInterface,
-		"",
-		false,
+		&barcode{"", false},
 		nil,
 	}
 }

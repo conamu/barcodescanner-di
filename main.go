@@ -66,6 +66,7 @@ func main() {
 			}
 			sleep()
 		case "4":
+			session.data = getProductData()
 			_, err := session.driver.writeData()
 			if errors.Is(err, notFound) {
 				fmt.Println("This Code already exists in the Database.")

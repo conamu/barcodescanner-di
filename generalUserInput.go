@@ -24,24 +24,24 @@ func validateBarcode(barcode *barcode) *barcode {
 	return barcode
 }
 
-func getParams() (name, category, description string) {
+func getProductData() []string {
 
-	fmt.Print("Whats the Product Name? (max. 150 characters): ")
+	fmt.Print("What's the Product Name? (max. 150 characters): ")
 	scanner.Scan()
-	name = scanner.Text()
+	name := scanner.Text()
 	name = charLimiter(name, 150)
 
-	fmt.Print("Whats the Product Category? (max. 20 characters): ")
+	fmt.Print("What's the Product Category? (max. 20 characters): ")
 	scanner.Scan()
-	category = scanner.Text()
+	category := scanner.Text()
 	category = charLimiter(category, 20)
 
-	fmt.Print("Whats the Product Description? (max. 500 characters): ")
+	fmt.Print("What's the Product Description? (max. 500 characters): ")
 	scanner.Scan()
-	description = scanner.Text()
+	description := scanner.Text()
 	description = charLimiter(description, 500)
 
-	return name, category, description
+	return []string{name, category, description}
 }
 
 func charLimiter(code string, limit int) string {
