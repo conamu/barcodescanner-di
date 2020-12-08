@@ -5,7 +5,7 @@ type kvDriver struct {
 	data []string
 }
 
-func (kd kvDriver) getData() (bool, error, []string) {
+func (kd kvDriver) readData() (bool, error) {
 	// TODO
 }
 
@@ -19,6 +19,10 @@ func (kd kvDriver) editData() (bool, error) {
 
 func (kd kvDriver) deleteData() (bool, error) {
 	// TODO
+}
+
+func (kd kvDriver) getData() []string {
+	return kd.data
 }
 
 func newKvDriver() kvDriver {
