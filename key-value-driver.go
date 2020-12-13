@@ -6,10 +6,15 @@ type kvDriver struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (kd *kvDriver) getData() (bool, error, []string) {
 =======
 func (kd kvDriver) readData() (bool, error) {
 >>>>>>> aad3ea0565caa4cd852ff693c54c350352e27ef3
+=======
+
+func (kd kvDriver) readData() (bool, error) {
+>>>>>>> 8443cf764a3a0fae86ce56b70563045e10ed045a
 	// TODO
 }
 
@@ -26,6 +31,7 @@ func (kd *kvDriver) deleteData() (bool, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func newKvDriver() *kvDriver {
 	return &kvDriver {
 =======
@@ -36,6 +42,10 @@ func (kd kvDriver) getData() []string {
 func newKvDriver() kvDriver {
 	return kvDriver {
 >>>>>>> aad3ea0565caa4cd852ff693c54c350352e27ef3
+=======
+func newKvDriver() *kvDriver {
+	return &kvDriver {
+>>>>>>> 8443cf764a3a0fae86ce56b70563045e10ed045a
 		validateBarcode(getBarcode()),
 		nil,
 	}
