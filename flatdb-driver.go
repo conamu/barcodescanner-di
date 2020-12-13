@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
-	"github.com/spf13/viper"
 	"log"
 	"os"
 	"strings"

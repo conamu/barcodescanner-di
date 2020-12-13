@@ -5,24 +5,24 @@ type kvDriver struct {
 	data []string
 }
 
-func (kd kvDriver) getData() (bool, error, []string) {
+func (kd *kvDriver) getData() (bool, error, []string) {
 	// TODO
 }
 
-func (kd kvDriver) writeData() (bool, error) {
+func (kd *kvDriver) writeData() (bool, error) {
 	// TODO
 }
 
-func (kd kvDriver) editData() (bool, error) {
+func (kd *kvDriver) editData() (bool, error) {
 	// TODO
 }
 
-func (kd kvDriver) deleteData() (bool, error) {
+func (kd *kvDriver) deleteData() (bool, error) {
 	// TODO
 }
 
-func newKvDriver() kvDriver {
-	return kvDriver {
+func newKvDriver() *kvDriver {
+	return &kvDriver {
 		validateBarcode(getBarcode()),
 		nil,
 	}

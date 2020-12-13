@@ -5,24 +5,24 @@ type sqlDriver struct {
 	data []string
 }
 
-func (sd sqlDriver) getData() (bool, error, []string) {
+func (sd *sqlDriver) getData() (bool, error, []string) {
 	// TODO
 }
 
-func (sd sqlDriver) writeData() (bool, error) {
+func (sd *sqlDriver) writeData() (bool, error) {
 	// TODO
 }
 
-func (sd sqlDriver) editData() (bool, error) {
+func (sd *sqlDriver) editData() (bool, error) {
 	// TODO
 }
 
-func (sd sqlDriver) deleteData() (bool, error) {
+func (sd *sqlDriver) deleteData() (bool, error) {
 	// TODO
 }
 
-func newSqlDriver() sqlDriver {
-	return sqlDriver {
+func newSqlDriver() *sqlDriver {
+	return &sqlDriver {
 		validateBarcode(getBarcode()),
 		nil,
 	}
