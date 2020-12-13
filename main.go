@@ -39,12 +39,13 @@ func main() {
 
 		switch menu.GetInputData() {
 		case "1":
-			_, err, data := session.driver.getData()
+			_, err := session.driver.readData()
 			if errors.Is(err, notFound) {
 				fmt.Println("This Code was not found.\nPlease Add it first.")
 			} else if errors.Is(err, notValid) {
 				fmt.Println("This Code is not valid.")
 			} else {
+				data := session.driver.getData()
 				itemDisplay(data[0], data[1], data[2], data[3])
 			}
 			sleep()
@@ -66,7 +67,6 @@ func main() {
 			}
 			sleep()
 		case "4":
-			session.data = getProductData()
 			_, err := session.driver.writeData()
 			if errors.Is(err, notFound) {
 				fmt.Println("This Code already exists in the Database.")
@@ -76,7 +76,7 @@ func main() {
 			sleep()
 		case "5":
 			for true {
-				continues, err, data := session.driver.getData()
+				continues, err, data := session.driver.readData()
 				if !continues {
 					return
 				} else {
