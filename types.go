@@ -11,19 +11,22 @@ var scanner = bufio.NewScanner(os.Stdin)
 var session *codeSession
 var notFound = errors.New("CNF")
 var notValid = errors.New("NV")
+var alreadyExists = errors.New("AE")
 var exitCode = errors.New("EXIT")
 
 type dataInterface interface {
-	getData() (bool, error , []string)
+	readData() (bool, error)
 	writeData() (bool, error)
 	editData() (bool, error)
 	deleteData() (bool, error)
+	getData() []string
 }
 
 type codeSession struct {
 	driver dataInterface
 	barcode *barcode
-	data []string
+	endless bool
+	edit bool
 }
 
 type barcode struct {
@@ -35,7 +38,8 @@ func newCodeSession(dataInterface dataInterface) *codeSession  {
 	return &codeSession {
 		dataInterface,
 		&barcode{"", false},
-		nil,
+		false,
+		false
 	}
 }
 

@@ -5,7 +5,8 @@ type kvDriver struct {
 	data []string
 }
 
-func (kd *kvDriver) getData() (bool, error, []string) {
+
+func (kd kvDriver) readData() (bool, error) {
 	// TODO
 }
 

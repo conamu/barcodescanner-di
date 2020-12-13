@@ -3,9 +3,8 @@ package main
 type sqlDriver struct {
 	barcode *barcode
 	data []string
-}
 
-func (sd *sqlDriver) getData() (bool, error, []string) {
+func (sd sqlDriver) readData() (bool, error) {
 	// TODO
 }
 
