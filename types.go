@@ -39,7 +39,7 @@ func newCodeSession(dataInterface dataInterface) *codeSession  {
 		dataInterface,
 		&barcode{"", false},
 		false,
-		false
+		false,
 	}
 }
 

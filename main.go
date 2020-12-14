@@ -76,7 +76,7 @@ func main() {
 			sleep()
 		case "5":
 			for true {
-				continues, err, data := session.driver.readData()
+				continues, err := session.driver.readData()
 				if !continues {
 					return
 				} else {
@@ -85,6 +85,7 @@ func main() {
 					} else if errors.Is(err, notValid) {
 						fmt.Println("This Code is not valid.")
 					} else {
+						data := session.driver.getData()
 						itemDisplay(data[0], data[1], data[2], data[3])
 					}
 				}
