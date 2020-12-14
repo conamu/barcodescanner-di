@@ -27,6 +27,7 @@ type codeSession struct {
 	barcode *barcode
 	endless bool
 	edit bool
+	delete bool
 }
 
 type barcode struct {

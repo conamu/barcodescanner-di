@@ -57,12 +57,10 @@ func (fd *flatDriver) writeData() (bool, error) {
 	file, err := os.OpenFile(config.dbPath, os.O_APPEND|os.O_RDWR|os.O_CREATE, 0755)
 	check(err)
 	defer file.Close()
-
 	reader := csv.NewReader(file)
 	records, err := reader.ReadAll()
+	newRecords := make([][]string, len(records))
 	check(err)
-
-	newRecords := getProductData()
 
 	for i := 0; i < len(records); i++ {
 		record := strings.Join(records[i], "")
@@ -70,9 +68,10 @@ func (fd *flatDriver) writeData() (bool, error) {
 			return true, alreadyExists
 		}
 	}
-	if !session.edit {
+	if !session.edit && !session.delete {
 		records = append(records, fd.data)
-	} else if session.edit {
+	} else if session.edit && !session.delete {
+		newRecords := getProductData()
 		for i := 0; i < len(records); i++ {
 			if records[i][0] == fd.barcode.code {
 				switch itemEditMenu() {
@@ -85,6 +84,13 @@ func (fd *flatDriver) writeData() (bool, error) {
 				}
 			}
 		}
+	} else if !session.edit && session.delete {
+		for i := 0; i < len(records); i++ {
+			if records[i][0] != fd.barcode.code {
+				newRecords[i] = records[i]
+			}
+		}
+		records = newRecords
 	}
 
 	writer := csv.NewWriter(file)
@@ -117,13 +123,24 @@ func (fd *flatDriver) editData() (bool, error) {
 	fd.data[3] = newData[3]
 
 	_, err = fd.writeData()
+	check(err)
 
 	return true, nil
 
 }
 
 func (fd *flatDriver) deleteData() (bool, error) {
-	// TODO
+	fd.readData()
+	dataNotToDelete := make([]string, 1)
+
+	session.delete = true
+
+	fd.data = dataNotToDelete
+	fd.writeData()
+
+	session.delete = false
+
+	return true, nil
 }
 
 func (fd *flatDriver) getData() []string {
